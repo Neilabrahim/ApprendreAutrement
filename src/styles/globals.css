@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+/* Accessibility-focused typography for dyslexic, dysgraphic and blind students */
+:root {
+  /* Increased spacing and clear, sans-serif fonts */
+  --font-sans: 'Arial', 'Helvetica', sans-serif;
+}
+
+* {
+  /* Improved letter spacing for dyslexia */
+  letter-spacing: 0.03em;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.8;
+  /* High contrast for color blindness */
+  color: #1a202c;
+  word-spacing: 0.1em;
+}
+
+/* Headings with clear hierarchy and spacing */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.4;
+  margin-bottom: 0.75em;
+  margin-top: 0.75em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 1em;
+  /* Avoid justified text which is harder for dyslexic readers */
+  text-align: left;
+}
+
+/* Enhanced focus states for better keyboard navigation */
+button:focus,
+a:focus,
+input:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 3px;
+}
+
+/* Smooth transitions for dynamic elements */
+* {
+  transition-property: background-color, border-color, color, transform, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+}
+
+/* Screen reader only content - visible only to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Make sr-only content visible when focused */
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Ensure focus-visible for keyboard navigation */
+*:focus-visible {
+  outline: 4px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users but keep for keyboard users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
