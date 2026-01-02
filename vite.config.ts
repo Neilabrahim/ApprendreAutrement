@@ -3,8 +3,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 
-export default defineConfig({
-  base: '/ApprendreAutrement/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/ApprendreAutrement/' : '/',
   plugins: [react()],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -58,4 +58,4 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-});
+}));
