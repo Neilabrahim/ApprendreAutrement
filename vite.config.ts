@@ -8,7 +8,7 @@ export default defineConfig(({ command, mode }) => {
   const isVercel = !!process.env.VERCEL;
 
   // Use subpath only if building for production environment that is NOT Vercel (e.g. GitHub Pages)
-  const base = (isProd && !isVercel) ? '/ApprendreAutrement/' : '/';
+  const base = '/';
 
   return {
     base,
