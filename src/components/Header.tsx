@@ -27,7 +27,7 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center gap-3">
             <BookOpen className="w-10 h-10" strokeWidth={2.5} aria-hidden="true" />
-            <span className="text-2xl tracking-wide">ÉduAccess</span>
+            <span className="text-2xl tracking-wide">ApprendreAutrement</span>
           </div>
 
           <div className="flex items-center gap-4">
