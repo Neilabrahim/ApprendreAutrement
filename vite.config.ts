@@ -3,9 +3,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 
-export default defineConfig(({ mode }) => {
-  const isVercel = process.env.VERCEL === '1';
-  const base = isVercel ? '/' : (mode === 'production' ? '/ApprendreAutrement/' : '/');
+export default defineConfig(({ command, mode }) => {
+  const isProd = mode === 'production';
+  const isVercel = !!process.env.VERCEL;
+
+  // Use subpath only if building for production environment that is NOT Vercel (e.g. GitHub Pages)
+  const base = (isProd && !isVercel) ? '/ApprendreAutrement/' : '/';
 
   return {
     base,
