@@ -1,5 +1,13 @@
 import { Volume2, Type, Palette, Clock } from 'lucide-react';
 
+/**
+ * Liste des fonctionnalités mises en avant sur la page d'accueil.
+ * Chaque objet représente une carte de fonctionnalité avec :
+ * - une icône
+ * - un titre et une description
+ * - des codes couleurs pour le style (Tailwind CSS)
+ * - un label ARIA pour l'accessibilité
+ */
 const features = [
   {
     icon: Volume2,
@@ -35,10 +43,18 @@ const features = [
   }
 ];
 
+/**
+ * Composant Features
+ * 
+ * Affiche une grille de cartes décrivant les principales fonctionnalités d'accessibilité de la plateforme.
+ * Utilise un mapping sur le tableau `features` pour générer les cartes de manière dynamique.
+ * 
+ * @returns {JSX.Element} La section des fonctionnalités.
+ */
 export function Features() {
   return (
-    <section 
-      className="py-16 px-4 bg-white" 
+    <section
+      className="py-16 px-4 bg-white"
       aria-labelledby="features-title"
       role="region"
     >
@@ -47,6 +63,7 @@ export function Features() {
           Fonctionnalités accessibles
         </h2>
 
+        {/* Grille responsive : 1 colonne sur mobile, 2 sur tablette, 4 sur bureau */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" role="list">
           {features.map((feature, index) => (
             <div

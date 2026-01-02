@@ -1,5 +1,14 @@
 import { Calculator, Globe, Beaker, Book, Music, Palette as PaletteIcon } from 'lucide-react';
 
+/**
+ * Liste des matières scolaires affichées.
+ * Chaque matière possède :
+ * - Une icône représentative
+ * - Un titre
+ * - Le nombre de leçons disponibles
+ * - Des propriétés de style (couleur, bordure, motif de fond)
+ * - Une description pour les lecteurs d'écran
+ */
 const subjects = [
   {
     icon: Calculator,
@@ -39,10 +48,18 @@ const subjects = [
   }
 ];
 
+/**
+ * Composant Subjects
+ * 
+ * Présente une grille de cartes interactives pour chaque matière scolaire.
+ * Chaque carte utilise des motifs visuels (patterns) et des couleurs distinctes pour faciliter l'identification.
+ * 
+ * @returns {JSX.Element} La section des matières.
+ */
 export function Subjects() {
   return (
-    <section 
-      className="py-16 px-4 bg-gray-50" 
+    <section
+      className="py-16 px-4 bg-gray-50"
       aria-labelledby="subjects-title"
       role="region"
     >
@@ -54,6 +71,7 @@ export function Subjects() {
           Choisis ta matière préférée et commence à apprendre
         </p>
 
+        {/* Grille responsive adaptative : 1 col (mobile) -> 2 cols (tablette) -> 3 cols (desktop) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
           {subjects.map((subject, index) => (
             <button
@@ -73,8 +91,8 @@ export function Subjects() {
                   {subject.lessons}
                 </p>
               </div>
-              
-              {/* Pattern overlay for additional visual distinction */}
+
+              {/* Superposition de motifs décoratifs pour différencier visuellement les cartes */}
               <div className="absolute inset-0 opacity-10" aria-hidden="true">
                 {subject.pattern === 'dots' && (
                   <div className="w-full h-full" style={{

@@ -1,12 +1,28 @@
 import { useState } from 'react';
 import { Settings, ZoomIn, ZoomOut, Volume2, Languages } from 'lucide-react';
 
+/**
+ * Composant AccessibilityControls
+ *
+ * Ce composant fournit un panneau flottant permettant à l'utilisateur de personnaliser l'affichage et l'expérience :
+ * - Ajustement de la taille de la police
+ * - Sélection de la langue (Français/Arabe) pour la synthèse vocale
+ * - Lecture audio du contenu de la page
+ *
+ * Il utilise l'API Web Speech pour la synthèse vocale.
+ *
+ * @returns {JSX.Element} Le panneau de contrôles d'accessibilité.
+ */
 export function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false);
   const [fontSize, setFontSize] = useState(100);
   const [announcement, setAnnouncement] = useState('');
   const [speechLanguage, setSpeechLanguage] = useState<'fr-FR' | 'ar-SA'>('fr-FR');
 
+  /**
+   * Augmente la taille de la police de 10%, jusqu'à un maximum de 150%.
+   * Met à jour la variable CSS racine pour affecter toute l'application.
+   */
   const increaseFontSize = () => {
     const newSize = Math.min(fontSize + 10, 150);
     setFontSize(newSize);
@@ -14,6 +30,10 @@ export function AccessibilityControls() {
     setAnnouncement(`Taille du texte augmentée à ${newSize} pourcent`);
   };
 
+  /**
+   * Diminue la taille de la police de 10%, jusqu'à un minimum de 80%.
+   * Met à jour la variable CSS racine.
+   */
   const decreaseFontSize = () => {
     const newSize = Math.max(fontSize - 10, 80);
     setFontSize(newSize);
@@ -26,12 +46,18 @@ export function AccessibilityControls() {
     'ar-SA': "مرحباً بك في إيديو أكسس، منصتك التعليمية الميسرة. يمكنك دراسة الرياضيات، الفرنسية، العربية والعلوم. توفر المنصة قراءة صوتية، خط مناسب، تباينات عالية وتعلم بالسرعة التي تناسبك."
   };
 
+  /**
+   * Utilise l'API SpeechSynthesis du navigateur pour lire le texte fourni.
+   *
+   * @param {string} text - Le texte à lire.
+   * @param {'fr-FR'|'ar-SA'} lang - Le code de langue BCP 47 (ex: 'fr-FR' ou 'ar-SA').
+   */
   const speakText = (text: string, lang: 'fr-FR' | 'ar-SA') => {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel(); // Arrêter toute lecture en cours
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = lang;
-      utterance.rate = 0.9;
+      utterance.rate = 0.9; // Vitesse de lecture légèrement ralentie pour une meilleure clarté
       window.speechSynthesis.speak(utterance);
       setAnnouncement(`Lecture audio démarrée en ${lang === 'fr-FR' ? 'français' : 'arabe'}`);
     } else {
@@ -52,10 +78,10 @@ export function AccessibilityControls() {
   return (
     <div className="fixed top-24 right-4 z-50" role="complementary" aria-label="Contrôles d'accessibilité">
       {/* Annonces pour les lecteurs d'écran */}
-      <div 
-        role="status" 
-        aria-live="polite" 
-        aria-atomic="true" 
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
         className="sr-only"
       >
         {announcement}
@@ -72,7 +98,7 @@ export function AccessibilityControls() {
       </button>
 
       {isOpen && (
-        <div 
+        <div
           id="accessibility-panel"
           className="mt-4 bg-white border-4 border-blue-600 rounded-2xl shadow-2xl p-6 space-y-4 w-80"
           role="dialog"
@@ -116,11 +142,10 @@ export function AccessibilityControls() {
               <div className="flex gap-2" role="group" aria-label="Sélection de la langue">
                 <button
                   onClick={() => handleLanguageChange('fr-FR')}
-                  className={`flex-1 px-4 py-3 rounded-lg border-2 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-                    speechLanguage === 'fr-FR' 
-                      ? 'bg-blue-600 text-white border-blue-600' 
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                  }`}
+                  className={`flex-1 px-4 py-3 rounded-lg border-2 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300 ${speechLanguage === 'fr-FR'
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
                   aria-label="Sélectionner le français comme langue de lecture"
                   aria-pressed={speechLanguage === 'fr-FR'}
                 >
@@ -128,11 +153,10 @@ export function AccessibilityControls() {
                 </button>
                 <button
                   onClick={() => handleLanguageChange('ar-SA')}
-                  className={`flex-1 px-4 py-3 rounded-lg border-2 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300 ${
-                    speechLanguage === 'ar-SA' 
-                      ? 'bg-blue-600 text-white border-blue-600' 
-                      : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                  }`}
+                  className={`flex-1 px-4 py-3 rounded-lg border-2 transition-colors focus:outline-none focus:ring-4 focus:ring-blue-300 ${speechLanguage === 'ar-SA'
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                    }`}
                   aria-label="Sélectionner l'arabe comme langue de lecture"
                   aria-pressed={speechLanguage === 'ar-SA'}
                 >
